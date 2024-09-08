@@ -14,6 +14,6 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <MantineProvider theme={theme}>
       <Router />
-    </MantineProvider>;
-  </StrictMode>,
+    </MantineProvider>
+  </StrictMode>
 )

@@ -1,5 +1,7 @@
+import { CompanyList } from "../components/lists/company.list";
+
 export function Home() {
-    return <>
-        <p>welcome</p>
-    </>
+    return (
+        <CompanyList />
+    )
 }
