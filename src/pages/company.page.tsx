@@ -1,8 +1,8 @@
-import { LoaderFunctionArgs, Params, useLoaderData, useParams } from "react-router-dom";
+import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 
 import { getCompany } from "../utils/queries";
 import { Company as TCompamy } from "../types";
-import { Button, Card, Center, Flex, Group, Loader, Stack, Text, TextInput } from "@mantine/core";
+import { Button, Card, Center, Flex, Group, Stack, Text, TextInput } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
 import { useState } from "react";

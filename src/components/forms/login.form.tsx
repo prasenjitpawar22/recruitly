@@ -26,6 +26,7 @@ export function LoginForm() {
 
     async function onSubmit(data: z.infer<typeof loginSchema>) {
         setIsSubmiting(true)
+        console.log(data);
 
         await fakeApi();
         localStorage.setItem('logged-in', JSON.stringify(true))
