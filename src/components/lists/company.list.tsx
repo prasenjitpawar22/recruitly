@@ -28,7 +28,7 @@ export function CompanyList() {
         })()
     }, [activePage])
 
-    return <Center h={'100vh'}   >
+    return <Center h={'80vh'}>
         <Stack justify="center" align="center" >
             <Card withBorder radius={'md'} shadow="sm" >
                 <Text fw={500}>Company names</Text>

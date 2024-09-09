@@ -8,7 +8,7 @@ type updateCompany = {
     description: string
     phone: string
     postCode: String
-    id: string
+    id?: string
 }
 
 
