@@ -1,4 +1,4 @@
-import { Anchor, Center, Loader, Pagination, Stack, } from "@mantine/core";
+import { Anchor, Card, Center, Flex, Loader, Pagination, Stack, Text, } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { CompanyData } from "../../types";
 import { getPaginatedCompanyList } from "../../utils/queries";
@@ -28,15 +28,20 @@ export function CompanyList() {
         })()
     }, [activePage])
 
-    return <Center h={'100vh'} >
-        {isLoadin ? <Loader size={30} />
-            :
-            <Stack justify="center" align="center" >
-                {data?.data?.map((c) => (
-                    <Anchor key={c.id} href={`${c.id}`} > {c.name} </Anchor>
-                ))}
-                <Pagination total={total / 10} value={activePage} onChange={setPage} mt="sm" />
-            </Stack>
-        }
+    return <Center h={'100vh'}   >
+        <Stack justify="center" align="center" >
+            <Card withBorder radius={'md'} shadow="sm" >
+                <Text fw={500}>Company names</Text>
+                <Text fw={400} fz={'xs'} color={'var(--mantine-color-dimmed)'} >List of all the company.</Text>
+                <Flex h={500} w={400} gap={12} align={'center'} direction={'column'} justify={'center'} >
+                    {isLoadin ? <Loader size={30} />
+                        :
+                        data?.data?.map((c) => (
+                            <Anchor key={c.id} href={`${c.id}`} > {c.name} </Anchor>
+                        ))}
+                </Flex>
+            </Card>
+            <Pagination total={Math.ceil(total / SIZE) - 1} value={activePage} onChange={setPage} mt="sm" />
+        </Stack>
     </Center>
 }
