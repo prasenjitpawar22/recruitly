@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core";
+import { Button, Flex } from "@mantine/core";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 
 export function ProtectedRoutes() {
@@ -12,7 +12,9 @@ export function ProtectedRoutes() {
     }
 
     return localStorageToken ? <>
-        <Button mt={4} ml={4} radius={50} onClick={logout} > Logout </Button>
+        <Flex justify={'end'} m={4} >
+            <Button mt={4} ml={4} radius={50} onClick={logout} > Logout </Button>
+        </Flex>
         <Outlet />
     </>
         : <Navigate to="/login" replace />

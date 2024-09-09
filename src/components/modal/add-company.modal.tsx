@@ -6,7 +6,7 @@ export function AddCompanyModal() {
     const [opened, { open, close }] = useDisclosure(false);
 
     return <Center>
-        <Flex w={450} p={2} justify={'end'} mr={12}>
+        <Flex p={2}>
             <Modal opened={opened} onClose={close} title="Add Company">
                 <AddCompanyForm close={close} />
             </Modal>

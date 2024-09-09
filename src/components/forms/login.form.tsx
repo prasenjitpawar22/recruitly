@@ -1,4 +1,4 @@
-import { Card, Text, Group, TextInput, Button, Stack } from '@mantine/core'
+import { Card, Text, Group, TextInput, Button, Stack, Loader } from '@mantine/core'
 import { z } from 'zod'
 import { useForm, zodResolver } from '@mantine/form'
 import { useState } from 'react'
@@ -61,7 +61,9 @@ export function LoginForm() {
                         />
                     </Stack>
                     <Group justify="flex-end" mt="md">
-                        <Button type="submit" disabled={isSubmiting} >Login</Button>
+                        <Button type="submit" disabled={isSubmiting} >
+                            {isSubmiting ? <Group gap={5} ><Loader size={20} />  Login </Group> : 'Login'}
+                        </Button>
                     </Group>
                 </form>
             </Card.Section>

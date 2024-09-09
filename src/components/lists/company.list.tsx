@@ -2,6 +2,7 @@ import { Anchor, Card, Center, Flex, Loader, Pagination, Stack, Text, } from "@m
 import { useEffect, useState } from "react";
 import { CompanyData } from "../../types";
 import { getPaginatedCompanyList } from "../../utils/queries";
+import Classes from '../../styles/card.module.css'
 
 const SIZE = 10
 
@@ -29,15 +30,15 @@ export function CompanyList() {
     }, [activePage])
 
     return <Center h={'80vh'}>
-        <Stack justify="center" align="center" >
-            <Card withBorder radius={'md'} shadow="sm" >
+        <Stack justify="center" align="center">
+            <Card withBorder radius={'md'} shadow="sm" className={Classes.card} >
                 <Text fw={500}>Company names</Text>
                 <Text fw={400} fz={'xs'} color={'var(--mantine-color-dimmed)'} >List of all the company.</Text>
-                <Flex h={500} w={400} gap={12} align={'center'} direction={'column'} justify={'center'} >
+                <Flex gap={12} align={'center'} direction={'column'} justify={'center'} h={350} >
                     {isLoadin ? <Loader size={30} />
                         :
                         data?.data?.map((c) => (
-                            <Anchor key={c.id} href={`${c.id}`} > {c.name} </Anchor>
+                            <Anchor key={c.id} href={`${c.id}`} fz={'sm'} > {c.name} </Anchor>
                         ))}
                 </Flex>
             </Card>

@@ -1,14 +1,15 @@
-import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
-
+import { LoaderFunctionArgs, useLoaderData, useNavigate } from "react-router-dom";
+import classes from '../styles/card.module.css'
 import { getCompany } from "../utils/queries";
 import { Company as TCompamy } from "../types";
-import { Button, Card, Center, Flex, Group, Stack, Text, TextInput } from "@mantine/core";
+import { Button, Card, Center, Flex, Group, Loader, Stack, Text, TextInput, Tooltip } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { z } from "zod";
 import { useState } from "react";
-import { Eye, Pencil } from "lucide-react";
+import { CircleChevronLeft, Eye, Pencil } from "lucide-react";
 import { updateCompany } from "../utils/mutations";
 import { fakeApi } from "../utils/functions";
+import { toast } from "sonner";
 
 export async function loader(args: LoaderFunctionArgs<any>) {
     const company = await getCompany(args.params.id!)
@@ -29,7 +30,7 @@ export function Company() {
     const [isSubmiting, setIsSubmiting] = useState(false)
     const company = useLoaderData() as TCompamy
     const [isViewMode, setIsViewMode] = useState(true)
-
+    const navigate = useNavigate()
     const form = useForm({
         mode: "controlled",
         initialValues: {
@@ -51,7 +52,10 @@ export function Company() {
             setIsSubmiting(true)
             await updateCompany(data)
             await fakeApi()
+            toast.success('Company updated')
+            setIsViewMode(true)
         } catch (error) {
+            toast.error('Opps, something went wrong.')
         } finally {
             setIsSubmiting(false)
         }
@@ -60,11 +64,14 @@ export function Company() {
     return (
         <Center h={'100vh'}>
             <Flex direction={'column'} justify={'center'} align={'center'} >
-                <Card padding={'lg'} withBorder shadow="sm" radius={'md'} >
+                <Group w={'100%'} mb={5}>
+                    <CircleChevronLeft cursor={'pointer'} onClick={() => navigate(-1)} />
+                </Group>
+                <Card padding={'lg'} className={classes.card} withBorder shadow="sm" radius={'md'} >
                     <form onSubmit={form.onSubmit(onSubmit)} >
                         <Stack gap={"lg"} >
                             <Group gap={2} justify="stretch" grow>
-                                <Text>Name </Text>
+                                <Text >Name </Text>
                                 <TextInput key={form.key('name')} {...form.getInputProps('name')} disabled={isViewMode} />
                             </Group>
                             <Group gap={2} justify="stretch" grow>
@@ -90,7 +97,7 @@ export function Company() {
                             {!isViewMode ?
                                 <Group justify="flex-end" mt="md">
                                     <Button type="submit" disabled={isSubmiting}>
-                                        Update
+                                        {isSubmiting ? <Group gap={5} ><Loader size={20} />  Update </Group> : 'Update'}
                                     </Button>
                                 </Group>
                                 : null}
@@ -98,8 +105,12 @@ export function Company() {
                     </form>
                 </Card>
                 <Group mt={12} align="center" justify="center" >
-                    <Eye onClick={() => setIsViewMode(!isViewMode)} style={{ color: !isViewMode ? 'var(--mantine-color-dark-0)' : '', cursor: 'pointer' }} />
-                    <Pencil onClick={() => setIsViewMode(!isViewMode)} style={{ color: isViewMode ? 'var(--mantine-color-dark-0)' : '', cursor: 'pointer' }} />
+                    <Tooltip label="View mode">
+                        <Eye onClick={() => setIsViewMode(!isViewMode)} style={{ color: !isViewMode ? 'var(--mantine-color-dark-0)' : '', cursor: 'pointer' }} />
+                    </Tooltip>
+                    <Tooltip label="Edit mode">
+                        <Pencil onClick={() => setIsViewMode(!isViewMode)} style={{ color: isViewMode ? 'var(--mantine-color-dark-0)' : '', cursor: 'pointer' }} />
+                    </Tooltip>
                 </Group>
             </Flex>
         </Center>

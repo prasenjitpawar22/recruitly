@@ -92,8 +92,8 @@ export function AddCompanyForm({ close }: { close: () => void }) {
                 {...form.getInputProps('postCode')}
             />
             <Group justify="flex-end" mt="md">
-                <Button type="submit" w={100} disabled={isSubmiting}>
-                    {isSubmiting ? <Loader size={20} /> : 'Add'}
+                <Button type="submit" w={100} disabled={isSubmiting} >
+                    {isSubmiting ? <Group gap={5} ><Loader size={20} />  Add </Group> : 'Add'}
                 </Button>
             </Group>
         </Flex>
