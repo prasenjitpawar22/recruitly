@@ -1,10 +1,11 @@
+import InlinePopup from "../components/forms/add-company-form-new";
 import { CompanyList } from "../components/lists/company.list";
-import { AddCompanyModal } from "../components/modal/add-company.modal";
 
 export function Home() {
     return (
         <>
-            <AddCompanyModal />
+            {/* <AddCompanyModal /> */}
+            <InlinePopup />
             <CompanyList />
         </>
     )

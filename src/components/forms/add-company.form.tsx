@@ -5,6 +5,13 @@ import { z } from "zod";
 import { updateCompany } from "../../utils/mutations";
 import { fakeApi } from "../../utils/functions";
 import { toast } from "sonner";
+import { motion, Variants } from 'framer-motion'
+
+
+const formItemVariants: Variants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.3, staggerChildren: 0.1 } },
+}
 
 
 const addCompanySchema = z.object({
@@ -48,16 +55,20 @@ export function AddCompanyForm({ close }: { close: () => void }) {
 
     }
 
-
     return <form onSubmit={form.onSubmit(onSubmit)}   >
-        <Flex gap={8} direction={'column'} >
-            <TextInput
-                withAsterisk
-                label="Name"
-                placeholder="Name"
-                key={form.key('name')}
-                {...form.getInputProps('name')}
-            />
+        <Flex gap={8} p={20} direction={'column'} >
+            <motion.div
+                variants={formItemVariants}
+            >
+                <TextInput
+                    withAsterisk
+                    label="Name"
+                    placeholder="Name"
+                    key={form.key('name')}
+                    {...form.getInputProps('name')}
+                />
+
+            </motion.div>
             <TextInput
                 withAsterisk
                 label="Description"
@@ -65,33 +76,48 @@ export function AddCompanyForm({ close }: { close: () => void }) {
                 key={form.key('description')}
                 {...form.getInputProps('description')}
             />
-            <TextInput
-                withAsterisk
-                label="City"
-                placeholder="City"
-                key={form.key('city')}
-                {...form.getInputProps('city')}
-            /><TextInput
-                withAsterisk
-                label="Country Name"
-                placeholder="Country Name"
-                key={form.key('countryName')}
-                {...form.getInputProps('countryName')}
-            /><TextInput
-                withAsterisk
-                type="number"
-                label="Phone"
-                placeholder="Phone"
-                key={form.key('phone')}
-                {...form.getInputProps('phone')}
-            /><TextInput
-                withAsterisk
-                label="Post Code"
-                placeholder="Post Code"
-                key={form.key('postCode')}
-                {...form.getInputProps('postCode')}
-            />
+            <motion.div
+                className="flex gap-2"
+                variants={formItemVariants}>
+                <TextInput
+                    withAsterisk
+                    label="City"
+                    placeholder="City"
+                    key={form.key('city')}
+                    {...form.getInputProps('city')}
+                />
+                <TextInput
+                    withAsterisk
+                    label="Country Name"
+                    placeholder="Country Name"
+                    key={form.key('countryName')}
+                    {...form.getInputProps('countryName')}
+                />
+            </motion.div>
+            <motion.div
+                className="flex gap-2"
+                variants={formItemVariants}>
+                <TextInput
+                    withAsterisk
+                    type="number"
+                    label="Phone"
+                    placeholder="Phone"
+                    key={form.key('phone')}
+                    {...form.getInputProps('phone')}
+
+                />
+                <TextInput
+                    withAsterisk
+                    label="Post Code"
+                    placeholder="Post Code"
+                    key={form.key('postCode')}
+                    {...form.getInputProps('postCode')}
+                />
+            </motion.div>
             <Group justify="flex-end" mt="md">
+                <Button w={100} disabled={isSubmiting} variant="white" onClick={close} >
+                    Close
+                </Button>
                 <Button type="submit" w={100} disabled={isSubmiting} >
                     {isSubmiting ? <Group gap={5} ><Loader size={20} />  Add </Group> : 'Add'}
                 </Button>
