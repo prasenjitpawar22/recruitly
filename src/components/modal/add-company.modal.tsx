@@ -1,4 +1,4 @@
-import { Button, Center, Flex, Modal } from "@mantine/core";
+import { Button, Center, Flex, Modal, } from "@mantine/core";
 import { useDisclosure } from '@mantine/hooks';
 import { AddCompanyForm } from "../forms/add-company.form";
 
@@ -10,7 +10,7 @@ export function AddCompanyModal() {
             <Modal opened={opened} onClose={close} title="Add Company">
                 <AddCompanyForm close={close} />
             </Modal>
-            <Button radius={'md'} onClick={open} >Add company</Button>
+            <Button radius={'md'} onClick={open}>Add company</Button>
         </Flex>
     </Center >
 }

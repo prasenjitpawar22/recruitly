@@ -1,9 +1,0 @@
-.card {
-    @media (max-width: $mantine-breakpoint-sm) {
-        width: 20rem;
-    }
-
-    @media (min-width: $mantine-breakpoint-md) {
-        width: 40rem;
-    }
-}
